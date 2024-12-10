@@ -1,0 +1,10 @@
+Get-ChildItem -Path "C:\Users\" | ForEach-Object {
+    $userFolder = $_.FullName
+    $appDataLocalPath = Join-Path -Path $userFolder -ChildPath "AppData\Local\Temp"
+    write-output $appDataLocalPath
+    Get-ChildItem $appDataLocalPath | Where-Object { -not $_.PSIsContainer } | ForEach-Object {
+    Remove-Item -Path $_.FullName -Force -Confirm:$false
+}
+    }
+Remove-Item "C:\Windows\Temp*.*" | Where { ! $_.PSIsContainer }
+Clear-RecycleBin
