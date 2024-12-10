@@ -6,5 +6,7 @@ Get-ChildItem -Path "C:\Users\" | ForEach-Object {
     Remove-Item -Path $_.FullName -Force -Confirm:$false
 }
     }
-Remove-Item "C:\Windows\Temp*.*" | Where { ! $_.PSIsContainer }
+Get-ChildItem "C:\Windows\Temp" | Where-Object { -not $_.PSIsContainer } | ForEach-Object {
+    Remove-Item -Path $_.FullName -Force -Confirm:$false
+}
 Clear-RecycleBin -Confirm:$false
